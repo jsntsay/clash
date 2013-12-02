@@ -1,5 +1,17 @@
 {% extends "discuss/base.html" %}
 
 {% block content %}
-Insert stuff here!
+
+	{% if user.is_authenticated %}
+		<h2>Your discussions:</h2>
+		<ul>
+			{% for d in discuss %}
+				<li><h3><a href="{% url 'discuss' d.id %}">{{d.id}} - {{d.state}}</a></h3></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<h2>Register for an anonymous discussion account here:</h2>
+		<h3><a href="{% url 'register' %}">Register</a></h3>
+	{% endif %}
+
 {% endblock %}

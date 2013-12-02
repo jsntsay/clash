@@ -11,4 +11,5 @@ urlpatterns = patterns('',
 	# Route to logout a user and send them back to the login page
     url(r'^logout$', 'django.contrib.auth.views.logout_then_login', name='logout'),
 	url(r'^photo/(?P<id>\d+)$', 'discuss.views.get_photo', name='photo'),
+	url(r'^register$', 'discuss.views.register', name='register'),
 )

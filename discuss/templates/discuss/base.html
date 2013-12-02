@@ -27,11 +27,16 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
 			{% if user.is_authenticated %}
-			<li><a href="{% url 'logout' %}">Logout</a></li>
+				<li><a href="{% url 'index' %}">My Discussions</a></li>
 			{% else %}
-			<li><a href="{% url 'logout' %}">Login</a></li>
+				<li><a href="{% url 'register' %}">Register</a></li>
 			{% endif %}
 			<li><a href="#">My Account</a></li>
+			{% if user.is_authenticated %}
+				<li><a href="{% url 'logout' %}">Logout</a></li>
+			{% else %}
+				<li><a href="{% url 'logout' %}">Login</a></li>
+			{% endif %}
           </ul>
 		  {% endblock %}
         </div><!--/.nav-collapse -->
