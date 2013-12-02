@@ -1,0 +1,42 @@
+{% extends "discuss/discussionbase.html" %}
+{% block content %}
+	<p>
+	Register for an anonymous account on Clash:
+	</p>
+	<form method="post" action="{% url 'register' %}">
+		<table>
+			<tr>
+				<td>Username (will not be shown):</td>
+				<td><input type="text" name="username" value="{{username}}"></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input type="password" name="password1"></td>
+			</tr>
+			<tr>
+				<td>Confirm password:</td>
+				<td><input type="password" name="password2"></td>
+			</tr>
+			<tr>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td>Tell us a bit about yourself:</td>
+			</tr>
+			<tr>
+				<td>Political leaning:</td>
+				<td><input type="text" name="political" value="{{political}}"></td>
+			</tr>
+			<tr>
+				<td>Age:</td>
+				<td><input type="number" name="age" value="{{age}}"></td>
+			</tr>
+			<tr>
+				<td>Gender:</td>
+				<td><input type="text" name="gender" value="{{gender}}"></td>
+			</tr>
+		</table>
+		<input type="submit" value="Register" />
+		{% csrf_token %}
+	</form>
+{% endblock %}

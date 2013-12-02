@@ -22,8 +22,69 @@ ANIMALS = ['tiger', 'owl', 'giraffe', 'parrot']
 ANIMAL_COLORS = ['#F7D11B', '#88288B', '#34F8F2', '#C4029B', '#11584B', '#BE242C']
 
 def index(request):
-    return render(request, 'discuss/index.html')
+	context = {}
+	if (request.user.is_authenticated()):
+		discussions = Discussion.objects.filter(userA=request.user)
+		context['discuss'] = discussions
+	
+	return render(request, 'discuss/index.html', context)
 
+def register(request):
+	context = {}
+
+	# Just display the registration form if this is a GET request
+	if request.method == 'GET':
+		return render(request, 'discuss/register.html', context)
+
+	errors = []
+	context['errors'] = errors
+
+	# Checks the validity of the form data
+	if not 'username' in request.POST or not request.POST['username']:
+		errors.append('Username is required.')
+	else:
+		# Save the username in the request context to re-fill the username
+		# field in case the form has errrors
+		context['username'] = request.POST['username']
+
+	if not 'password1' in request.POST or not request.POST['password1']:
+		errors.append('Password is required.')
+	if not 'password2' in request.POST or not request.POST['password2']:
+		errors.append('Confirm password is required.')
+
+	if ('password1' in request.POST and 'password2' in request.POST and \
+			request.POST['password1'] and request.POST['password2'] and \
+			request.POST['password1'] != request.POST['password2']):
+		errors.append('Passwords did not match.')
+
+	if (len(User.objects.filter(username = request.POST['username'])) > 0):
+		errors.append('Username is already taken.')
+
+	if ('political' not in request.POST or request.POST['political'] == '' or \
+			'age' not in request.POST or request.POST['age'] == '' or \
+			'gender' not in request.POST or request.POST['gender'] == ''):
+		errors.append('Please fill out all the fields')
+
+	if errors:
+		return render(request, 'discuss/register.html', context)
+
+	# Creates the new user from the valid form data
+	new_user = User.objects.create_user(username=request.POST['username'], \
+									password=request.POST['password1'])
+	new_user.save()
+	
+	
+	
+	newProfile = UserProfile.objects.create(user=new_user, political=request.POST['political'], \
+						age=int(request.POST['age']), gender=request.POST['gender'])
+	newProfile.save()
+
+	# Logs in the new user and redirects to index
+	new_user = authenticate(username=request.POST['username'], \
+									password=request.POST['password1'])
+	login(request, new_user)
+	return redirect('/')
+	
 @login_required
 def discuss(request, id):
 	errors = []
@@ -348,12 +409,12 @@ def convertContext(answers):
 
 @login_required
 def get_photo(request, id):
-    entry = get_object_or_404(UserProfile, id=id)
-    if not entry.avatar:
-        raise Http404
+	entry = get_object_or_404(UserProfile, id=id)
+	if not entry.avatar:
+		raise Http404
 
-    content_type = guess_type(entry.avatar.name)
-    return HttpResponse(entry.avatar, mimetype=content_type)
+	content_type = guess_type(entry.avatar.name)
+	return HttpResponse(entry.avatar, mimetype=content_type)
 
 # ajax function for free comment page	
 @login_required

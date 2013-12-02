@@ -1,5 +1,12 @@
 {% extends "discuss/discussionbase.html" %}
+{% block articleA %}
+	<div class="articleinfo collapse" id="articleinfoA">
+{% endblock %}
+{% block articleB %}
+	<div class="articleinfo collapse" id="articleinfoB">
+{% endblock %}
 {% block discussion %}
+
 	{% if not finished %}
 	<h2> Tell us more about your own context: </h2>
 	<div id="questionblock">

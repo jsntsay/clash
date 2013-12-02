@@ -82,7 +82,9 @@
 				<div class="articleheader">
 					<a data-toggle="collapse" data-parent="#articleinfoboxA" href="#articleinfoA"><h2>{{articleA.title}}</h2></a>
 				</div>
-				<div class="articleinfo collapse" id="articleinfoA">
+				{% block articleA %}
+				<div class="articleinfo collapse in" id="articleinfoA">
+				{% endblock %}
 					<p><a href="{{articleA.article_link}}" target="_blank">{{articleA.source}}</a>
 					<p class="blurb">{{articleA.blurb}}
 				</div>
@@ -94,7 +96,9 @@
 					<div class="articleheader">
 						<a data-toggle="collapse" data-parent="#articleinfoboxB" href="#articleinfoB"><h2>{{articleB.title}}</h2></a>
 					</div>
-					<div class="articleinfo collapse" id="articleinfoB">
+					{% block articleB %}
+					<div class="articleinfo collapse in" id="articleinfoB">
+					{% endblock %}
 						<p><a href="{{articleB.article_link}}" target="_blank">{{articleB.source}}</a>
 						<p class="blurb">{{articleB.blurb}}
 					</div>

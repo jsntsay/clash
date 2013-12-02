@@ -259,7 +259,7 @@ textarea {
 }
 
 #commentbox {
-	height: 600px;
+	max-height: 600px;
 	overflow-y: auto;
 	overflow-x: visible;
 }
