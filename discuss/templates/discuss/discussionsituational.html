@@ -1,0 +1,70 @@
+{% extends "discuss/discussionbase.html" %}
+{% block discreteresults %}
+<div class="row">
+		<div class="col-sm-6">
+			<div class="discreteinfobox" id="discreteinfoboxA">
+				<div class="discreteheader">
+					<a data-toggle="collapse" data-parent="#discreteinfoboxA" href="#discreteinfoA"><h3>My position and context:</h3></a>
+				</div>
+				<div class="discreteinfo collapse in" id="discreteinfoA">
+					<p> I thought the article itself was <strong>{{positionA.0}}</strong> and <strong>{{positionA.1}}</strong>
+					<p> I <strong>{{positionA.2}}</strong> with the perspective in the article
+					<p> Your article seemed... <strong>{{positionA.3}}</strong>
+					<br>
+					<p> I see articles like this <strong>{{contextA.0}}</strong>
+					<p> My opinion about this kind of thing has been <strong>{{contextA.1}}</strong>
+					<p> With similar people as me, we see this <strong>{{contextA.2}}</strong>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="discreteinfobox" id="discreteinfoboxB">
+					<div class="discreteheader">
+						<a data-toggle="collapse" data-parent="#discreteinfoboxB" href="#discreteinfoB"><h3>My partner's position and context:</h3></a>
+					</div>
+					<div class="discreteinfo collapse in" id="discreteinfoB">
+						<p> I thought the article itself was <strong>{{positionB.0}}</strong> and <strong>{{positionB.1}}</strong>
+						<p> I <strong>{{positionB.2}}</strong> with the perspective in the article
+						<p> Your article seemed... <strong>{{positionB.3}}</strong>
+						<br>
+						<p> I see articles like this <strong>{{contextB.0}}</strong>
+						<p> My opinion about this kind of thing has been <strong>{{contextB.1}}</strong>
+						<p> With similar people as me, we see this <strong>{{contextB.2}}</strong>
+					</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block discussion %}
+	{% if not finished %}
+		<h2>Now, bring your life into the mix.</h2>
+		<div id="questionblock">
+		<form method="post" action="{% url 'discuss' discuss.id %}">
+			<p> What is something you think about when you read these two articles?
+			{% for topic in situationaltopics %}
+				<div class="input-group situationalinput">
+				  <span class="input-group-addon"><input type="radio" name="option" value="{{ topic }}"> {{ topic|capfirst }}: </span>
+				  <input type="text" class="form-control" placeholder="A {{topic}} called _____" name="answer">
+				</div>
+			{% endfor %}
+			<br>
+			<p> <textarea class="form-control" rows="3" name="text" placeholder="Because..."></textarea>
+			<br>
+			<h3>Be polite. Ask what your partner thinks:</h3>
+			<p> <input class="btn btn-default btn-lg" type="submit" value="What about you?" />
+			{% csrf_token %}
+			<input type="hidden" name="currentstate" value="situational" />
+		</form>
+		</div>
+	{% else %}
+		<p id="waiting">Please wait for your partner to finish their discussion questions</p>
+	{% endif %}
+{% endblock %}
+
+{% block scripts %}
+	{% if finished %}
+		<script src="/static/js/situationalcheck.js"></script>
+		<script src="/static/js/waiting.js"></script>
+	{% endif %}
+{% endblock %}

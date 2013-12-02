@@ -1,0 +1,25 @@
+{% extends "discuss/base.html" %}
+{% block content %}
+	<h2>Select an article to discuss with your partner:</h2>
+	<form method="post" action="{% url 'discuss' discussid %}">
+		<ul id="articlelist">
+		{% for article in articles %}
+			<li id="articleitem">
+				<div class="infoboxsmall">
+					<a href="{{article.article_link}}" target="_blank"><h2>{{article.title}}</h2></a>
+					<input type="radio" name="article" value="{{article.id}}">
+					<p>{{article.source}}
+					<p class="blurb">{{article.blurb}}
+				</div>
+			</li>
+		{% endfor %}
+		</ul>
+		<input class="btn btn-default btn-lg submitbutton" type="submit" value="Got it!" />
+		<input type="hidden" name="state" value="discuss" />
+		{% csrf_token %}
+	</form>
+{% endblock %}
+
+{% block scripts %}
+	<script src="/static/js/articleselect.js"></script>
+{% endblock %}

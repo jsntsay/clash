@@ -1,0 +1,13 @@
+<comments>
+	{% for comment in comments %}
+	<comment>
+		{% if comment.user.id == userA.id %}
+		<usertype>a</usertype>
+		{% else %}
+		<usertype>b</usertype>
+		{% endif %}
+		<text>{{ comment.text }}</text>
+		<time>{{ comment.time }}</time>
+	</comment>
+	{% endfor %}
+</comments>

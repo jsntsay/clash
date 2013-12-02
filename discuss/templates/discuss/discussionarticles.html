@@ -1,0 +1,16 @@
+{% extends "discuss/discussionbase.html" %}
+{% block discussion %}
+	{% if not articleB %}
+		<p id="waiting">Partner is still selecting their article... please wait</p>
+	{% endif %}
+	<form method="post" action="{% url 'discuss' discuss.id %}">
+		<input class="btn btn-default" type="submit" value="Back!" />
+		<input type="hidden" name="state" value="articles" />
+		{% csrf_token %}
+	</form>
+{% endblock %}
+
+{% block scripts %}
+	<script src="/static/js/waiting.js"></script>
+	<script src="/static/js/articlecheck.js"></script>
+{% endblock %}

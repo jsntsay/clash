@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+    <meta name="author" content="">
+	<title>{% block title %}Clash{% endblock %}</title>
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/css/base.css" rel="stylesheet">
+</head>
+<body>
+	<!-- Static navbar -->
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+		{% block container %}
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'index' %}"><object data="/static/img/logo.svg" width="167" height="50" type="image/svg+xml"></object></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+			{% if user.is_authenticated %}
+			<li><a href="{% url 'logout' %}">Logout</a></li>
+			{% else %}
+			<li><a href="{% url 'logout' %}">Login</a></li>
+			{% endif %}
+			<li><a href="#">My Account</a></li>
+          </ul>
+		  {% endblock %}
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+	{% if errors %}
+	<div id="errors">
+		{% for error in errors %}
+			{{error}}
+		{% endfor %}
+		{% endif %}
+	</div>
+	
+	<div id="content">
+		{% block content %}{% endblock %}
+	</div>
+	
+	<script src="/static/js/jquery-1.10.2.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/jquery.cookie.js"></script>
+	<script src="/static/js/svgcolor.js"></script>
+	{% block scripts %}
+	{% endblock %}
+</body>
+</html>

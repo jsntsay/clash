@@ -1,0 +1,30 @@
+{% extends "discuss/base.html" %}
+{% block content %}
+    <div class="centeredcontent">
+		Your discussion partner is:
+		<p>
+		<div class="infobox">
+			<object class="avatar" width="200" height="200" color="{{discussB.animalColor}}" data="/static/img/{{discussB.animal}}.svg" type="image/svg+xml"></object>
+			<table>
+				<tr>
+					<td class="infoheader">Political Leaning:</td>
+					<td class="infovalue">{{profile.political}}</td>
+				</tr>
+				<tr>
+					<td class="infoheader">Age:</td>
+					<td class="infovalue">{{profile.age}}</td>
+				</tr>
+				<tr>
+					<td class="infoheader">Gender:</td>
+					<td class="infovalue">{{profile.gender}}</td>
+				</tr>
+			</table>
+		</div>
+		<p>
+		<form method="post" action="{% url 'discuss' discussid %}">
+			<input class="btn btn-default" type="submit" value="Discuss" />
+			<input type="hidden" name="state" value="articles" />
+			{% csrf_token %}
+		</form>
+	</div>
+{% endblock %}

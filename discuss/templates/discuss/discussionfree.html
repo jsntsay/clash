@@ -1,0 +1,107 @@
+{% extends "discuss/discussionbase.html" %}
+{% block discreteresults %}
+<div class="row">
+		<div class="col-sm-6">
+			<div class="discreteinfobox" id="discreteinfoboxA">
+				<div class="discreteheader">
+					<a data-toggle="collapse" data-parent="#discreteinfoboxA" href="#discreteinfoA"><h3>My position and context:</h3></a>
+				</div>
+				<div class="discreteinfo collapse" id="discreteinfoA">
+					<p> I thought the article itself was <strong>{{positionA.0}}</strong> and <strong>{{positionA.1}}</strong>
+					<p> I <strong>{{positionA.2}}</strong> with the perspective in the article
+					<p> Your article seemed... <strong>{{positionA.3}}</strong>
+					<br>
+					<p> I see articles like this <strong>{{contextA.0}}</strong>
+					<p> My opinion about this kind of thing has been <strong>{{contextA.1}}</strong>
+					<p> With similar people as me, we see this <strong>{{contextA.2}}</strong>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="discreteinfobox" id="discreteinfoboxB">
+					<div class="discreteheader">
+						<a data-toggle="collapse" data-parent="#discreteinfoboxB" href="#discreteinfoB"><h3>My partner's position and context:</h3></a>
+					</div>
+					<div class="discreteinfo collapse" id="discreteinfoB">
+						<p> I thought the article itself was <strong>{{positionB.0}}</strong> and <strong>{{positionB.1}}</strong>
+						<p> I <strong>{{positionB.2}}</strong> with the perspective in the article
+						<p> Your article seemed... <strong>{{positionB.3}}</strong>
+						<br>
+						<p> I see articles like this <strong>{{contextB.0}}</strong>
+						<p> My opinion about this kind of thing has been <strong>{{contextB.1}}</strong>
+						<p> With similar people as me, we see this <strong>{{contextB.2}}</strong>
+					</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block fillblankresults %}
+<div class="row">
+		<div class="col-sm-6">
+			<div class="fillblankinfobox" id="fillblankinfoboxA">
+				<div class="fillblankheader">
+					<a data-toggle="collapse" data-parent="#fillblankinfoboxA" href="#fillblankinfoA"><h3>My association:</h3></a>
+				</div>
+				<div class="fillblankinfo collapse in" id="fillblankinfoA">
+					<p> I thought of the <strong>{{sitA.option}}</strong> called <strong>{{sitA.answer}}</strong> and this is why:
+					<p class="sittext"> {{sitA.text}}
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="fillblankinfobox" id="fillblankinfoboxB">
+					<div class="fillblankheader">
+						<a data-toggle="collapse" data-parent="#fillblankinfoboxB" href="#fillblankinfoB"><h3>My partner's association:</h3></a>
+					</div>
+					<div class="fillblankinfo collapse in" id="fillblankinfoB">
+						<p> I thought of the <strong>{{sitB.option}}</strong> called <strong>{{sitB.answer}}</strong> and this is why:
+						<p class="sittext"> {{sitB.text}}
+					</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block discussion %}
+	{% if not finished %}
+		<div id="finishmessage">
+			<h3> Great! Have fun talking with your partner about your similarities and differences in perspective. </h3>
+			<h3>And remember - be polite. Ask what your partner thinks.</h3>
+		</div>
+	{% endif %}
+
+	<div id="commentbox">
+		<div id="comments" class="container">
+		{% for comment in comments %}
+			{% if profileA.user.id == comment.user.id %}
+				<div class="bubbleA"> 
+					{{ comment.text }} 
+				</div>
+				<p class="timeA">{{ comment.time }}</p>
+			{% else %}
+				<div class="bubbleB"> 
+					{{ comment.text }} 
+				</div>
+				<p class="timeB">{{ comment.time }}</p>
+			{% endif %}
+		{% endfor %}
+		</div>
+	</div>
+
+	<div id="inputarea">
+		<form method="post" action="{% url 'discuss' discuss.id %}">
+			<div id="textinput">
+				<textarea class="form-control commentinput" rows="2" placeholder="Comment..." name="text"></textarea>
+				<input class="btn btn-default" type="submit" value="Submit comment" />
+			</div>
+			{% csrf_token %}
+			<input type="hidden" name="currentstate" value="free" />
+		</form>
+		<div id="flaginput">
+			<span class="glyphicon glyphicon-flag red"></span> <span class="flagtext">Flag user for inappropriate content.</span>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="/static/js/comments.js"></script>
+{% endblock %}

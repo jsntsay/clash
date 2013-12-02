@@ -1,0 +1,124 @@
+{% extends "discuss/base.html" %}
+{% block content %}
+	{% comment %}
+	<p>
+	You are:
+	<p>
+	<object class="avatar" color="{{discuss.animalColor}}" data="/static/img/{{discuss.animal}}.svg" type="image/svg+xml"></object>
+	<p> Political: {{profileA.political}}
+	<p> Age: {{profileA.age}}
+	<p> Gender: {{profileA.gender}}
+	
+	<p>
+	You are discussing stuff with:
+	<p>
+	<object class="avatar" color="{{discussB.animalColor}}" data="/static/img/{{discussB.animal}}.svg" type="image/svg+xml"></object>
+	<p> Political: {{profileB.political}}
+	<p> Age: {{profileB.age}}
+	<p> Gender: {{profileB.gender}}
+	
+	{% endcomment %}
+	
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="userinfobox">
+				<div class="row">
+					<div class="col-xs-3">
+						<object class="avatar img-responsive avatarsmall" color="{{discuss.animalColor}}" data="/static/img/{{discuss.animal}}.svg" type="image/svg+xml"></object>
+					</div>
+					<div class="col-xs-9">
+						<table>
+							<tr>
+								<td class="infoheader">Me</td>
+							<tr>
+								<td class="infoheadersmall">Political Leaning:</td>
+								<td class="infovalue">{{profileA.political}}</td>
+							</tr>
+							<tr>
+								<td class="infoheadersmall">Age:</td>
+								<td class="infovalue">{{profileA.age}}</td>
+							</tr>
+							<tr>
+								<td class="infoheadersmall">Gender:</td>
+								<td class="infovalue">{{profileA.gender}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="userinfobox">
+				<div class="row">
+					<div class="col-xs-3">
+						<object class="avatar img-responsive avatarsmall" color="{{discussB.animalColor}}" data="/static/img/{{discussB.animal}}.svg" type="image/svg+xml"></object>
+					</div>
+					<div class="col-xs-9">
+						<table>
+							<tr>
+								<td class="infoheader">My Partner</td>
+							<tr>
+								<td class="infoheadersmall">Political Leaning:</td>
+								<td class="infovalue">{{profileB.political}}</td>
+							</tr>
+							<tr>
+								<td class="infoheadersmall">Age:</td>
+								<td class="infovalue">{{profileB.age}}</td>
+							</tr>
+							<tr>
+								<td class="infoheadersmall">Gender:</td>
+								<td class="infovalue">{{profileB.gender}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="articleinfobox" id="articleinfoboxA">
+				<div class="articleheader">
+					<a data-toggle="collapse" data-parent="#articleinfoboxA" href="#articleinfoA"><h2>{{articleA.title}}</h2></a>
+				</div>
+				<div class="articleinfo collapse" id="articleinfoA">
+					<p><a href="{{articleA.article_link}}" target="_blank">{{articleA.source}}</a>
+					<p class="blurb">{{articleA.blurb}}
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="articleinfobox" id="articleinfoboxB">
+				{% if articleB %}
+					<div class="articleheader">
+						<a data-toggle="collapse" data-parent="#articleinfoboxB" href="#articleinfoB"><h2>{{articleB.title}}</h2></a>
+					</div>
+					<div class="articleinfo collapse" id="articleinfoB">
+						<p><a href="{{articleB.article_link}}" target="_blank">{{articleB.source}}</a>
+						<p class="blurb">{{articleB.blurb}}
+					</div>
+				{% else %}
+					(Your partner is still choosing an article to share with you...)
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	
+	<div id="discreteresults">
+		{% block discreteresults %}
+		{% endblock %}
+	</div>
+	
+	<div id="fillblankresults">
+		{% block fillblankresults %}
+		{% endblock %}
+	</div>
+	
+	<br>
+	
+	<div id="discussion">
+		{% block discussion %}
+		{% endblock %}
+	</div>
+{% endblock %}

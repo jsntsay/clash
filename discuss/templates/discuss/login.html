@@ -1,0 +1,28 @@
+{% extends "discuss/base.html" %}
+{% block content %}
+{% if form.errors %}
+<p style="color:red">
+Incorrect user name and password.
+</p>
+{% endif %}
+
+<p>
+Log in:
+</p>
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
+
+<input type="submit" value="Login" />
+<input type="hidden" name="next" value="/" />
+{% csrf_token %}
+</form>
+{% endblock %}
