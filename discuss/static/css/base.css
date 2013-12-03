@@ -291,3 +291,7 @@ input[type="range"] {
 #slidertable td {
 	padding-bottom:10px;
 }
+
+#articleheader {
+	margin-left:40px;
+}

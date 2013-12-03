@@ -1,6 +1,6 @@
 {% extends "discuss/base.html" %}
 {% block content %}
-	<h2>Select an article to discuss with your partner:</h2>
+	<h2 id="articleheader">Select an article to discuss with your partner:</h2>
 	<form method="post" action="{% url 'discuss' discussid %}">
 		<ul id="articlelist">
 		{% for article in articles %}
