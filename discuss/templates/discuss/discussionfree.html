@@ -75,8 +75,8 @@
 		</div>
 	{% endif %}
 
-	<div id="commentbox">
-		<div id="comments" class="container">
+	<div id="commentbox" class="container">
+		<div id="comments">
 		{% for comment in comments %}
 			{% if profileA.user.id == comment.user.id %}
 				<div class="bubbleA"> 
@@ -96,8 +96,8 @@
 	<div id="inputarea">
 		<form method="post" action="{% url 'discuss' discuss.id %}">
 			<div id="textinput">
-				<textarea class="form-control commentinput" rows="2" placeholder="Comment..." name="text"></textarea>
-				<input class="btn btn-default" type="submit" value="Submit comment" />
+				<textarea class="form-control commentinput" rows="4" placeholder="Comment..." name="text"></textarea>
+				<input class="btn btn-custom" type="submit" value="Submit comment" />
 			</div>
 			{% csrf_token %}
 			<input type="hidden" name="currentstate" value="free" />

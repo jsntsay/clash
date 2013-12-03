@@ -10,7 +10,9 @@ $( document ).ready(function() {
 		$.get( "/situationalcheck/" + discussid, function(xml) {
 			var done = $(xml).find("done").text();
 			if (done == "1") {
-				location.reload(true);
+				setTimeout(function() {
+					location.reload(true);
+				}, 500);
 			}
 		});
 	}

@@ -57,6 +57,6 @@ $( document ).ready(function() {
 		}
 	});
 	
-	window.setInterval(checkComments, 500);
+	//window.setInterval(checkComments, 500);
 	
 });
