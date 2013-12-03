@@ -135,6 +135,9 @@ def discuss(request, id):
 				if 'answer1' not in request.POST or 'answer2' not in request.POST or 'answer3' not in request.POST or 'answer4' not in request.POST:
 					# user must answer all questions, complain at them if they don't
 					return errorRender(request, 'Please answer all questions for your partner', 'discuss/discussionposition.html', discuss, errors)
+				elif request.POST['answer1'] == '4' and request.POST['answer2'] == '4' and request.POST['answer3'] == '4' and request.POST['answer4'] == '4':
+					# user just left all default answers, screw that noise
+					return errorRender(request, 'Please answer all questions for your partner', 'discuss/discussionposition.html', discuss, errors)
 				else:
 					position.answer1 = int(request.POST['answer1'])
 					position.answer2 = int(request.POST['answer2'])
@@ -157,6 +160,9 @@ def discuss(request, id):
 					contextual = contextual[0]
 				if 'answer1' not in request.POST or 'answer2' not in request.POST or 'answer3' not in request.POST:
 					# user must answer all questions, complain at them if they don't
+					return errorRender(request, 'Please answer all questions for your partner', 'discuss/discussioncontext.html', discuss, errors)
+				elif request.POST['answer1'] == '4' and request.POST['answer2'] == '4' and request.POST['answer3'] == '4':
+					# user just left all default answers, screw that noise
 					return errorRender(request, 'Please answer all questions for your partner', 'discuss/discussioncontext.html', discuss, errors)
 				else:
 					contextual.answer1 = int(request.POST['answer1'])
@@ -263,6 +269,7 @@ def discuss(request, id):
 						dState.finished = False
 						dState.state = 'situational'
 						dState.save()
+						addDiscreteToContext(discuss, discussB, context)
 						context['finished'] = dState.finished
 						context['situationaltopics'] = SITUATIONAL_TOPICS
 						return render(request, 'discuss/discussionsituational.html', context)
@@ -282,6 +289,12 @@ def discuss(request, id):
 						dState.finished = False
 						dState.state = 'free'
 						dState.save()
+						
+						sitA = Situational.objects.get(discuss=discuss)
+						sitB = Situational.objects.get(discuss=discussB)
+						
+						context['sitA'] = sitA
+						context['sitB'] = sitB
 						context['finished'] = dState.finished
 						return render(request, 'discuss/discussionfree.html', context)
 						
@@ -299,6 +312,8 @@ def discuss(request, id):
 			context['sitB'] = sitB
 			context['comments'] = getComments(discuss)
 			context['finished'] = dState.finished
+			print(request.user.username)
+			print(context)
 			return render(request, 'discuss/discussionfree.html', context)
 				
 		return render(request, 'discuss/discussionbase.html', context)
@@ -348,7 +363,7 @@ def getComments(discuss):
 		allComments.append(comment)
 	for comment in commentsB:
 		allComments.append(comment)
-	comments = sorted(allComments, key=lambda comment: comment.time, reverse=True)
+	comments = sorted(allComments, key=lambda comment: comment.time)
 	return comments
 
 # randomly creates avatar animal and color for discussA, makes sure it's different than discussB

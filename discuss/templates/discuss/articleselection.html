@@ -1,6 +1,6 @@
 {% extends "discuss/base.html" %}
 {% block content %}
-	<h2>Select an article to discuss with your partner:</h2>
+	<h2 id="articleheader">Select an article to discuss with your partner:</h2>
 	<form method="post" action="{% url 'discuss' discussid %}">
 		<ul id="articlelist">
 		{% for article in articles %}
@@ -13,8 +13,13 @@
 				</div>
 			</li>
 		{% endfor %}
+			<li>
+				<div class="infoboxsmall">
+					<a href="#"><h2>Add an article</h2></a>
+				</div>
+			</li>
 		</ul>
-		<input class="btn btn-default btn-lg submitbutton" type="submit" value="Got it!" />
+		<input class="btn btn-custom btn-lg submitbutton" type="submit" value="Discuss" />
 		<input type="hidden" name="state" value="discuss" />
 		{% csrf_token %}
 	</form>

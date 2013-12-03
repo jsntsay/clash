@@ -3,6 +3,22 @@ html,body {
 	width:100%;
 }
 
+.btn {
+	-webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
+
+.btn-custom {
+  background-color: #3E3E3E;
+  color: #fff;
+}
+
+.btn-custom:hover {
+  background-color: #141414;
+  color: #fff;
+}
+
 body {
   min-height: 2000px;
   background-color: #F0F0F2;
@@ -92,9 +108,9 @@ h3 {
 
 .userinfobox {
   background-color: white;
-  font-size: 16px;
-  margin-left: 50px;
-  margin-right: 50px;
+  font-size: 14px;
+  margin-left: 40px;
+  margin-right: 40px;
   padding: 10px;
   max-height: 150px;
 }
@@ -151,7 +167,7 @@ h3 {
 }
 
 .avatarsmall {
-  max-height: 138px;
+  max-height: 100px;
 }
 
 #questionblock {
@@ -178,6 +194,7 @@ h3 {
 
 textarea {
   width: 100%;
+  margin-bottom: 10px;
 }
 
 #flaginput {
@@ -217,6 +234,7 @@ textarea {
 	margin-top: -5px;
 	left: -49px;
 	top: 72%;
+	
 }
 
 .bubbleB {
@@ -259,11 +277,21 @@ textarea {
 }
 
 #commentbox {
-	max-height: 600px;
-	overflow-y: auto;
-	overflow-x: visible;
+	max-width: 600px;
 }
 
 .sittext {
 	font-weight:300;
+}
+
+input[type="range"] {
+	width: 100%;
+}
+
+#slidertable td {
+	padding-bottom:10px;
+}
+
+#articleheader {
+	margin-left:40px;
 }

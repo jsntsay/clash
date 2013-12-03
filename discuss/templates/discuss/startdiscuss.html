@@ -1,9 +1,9 @@
 {% extends "discuss/base.html" %}
 {% block content %}
     <div class="centeredcontent">
-		Your discussion partner is:
-		<p>
+		
 		<div class="infobox">
+			<h1>Your discussion partner is:</h1>
 			<object class="avatar" width="200" height="200" color="{{discussB.animalColor}}" data="/static/img/{{discussB.animal}}.svg" type="image/svg+xml"></object>
 			<table>
 				<tr>
@@ -22,7 +22,7 @@
 		</div>
 		<p>
 		<form method="post" action="{% url 'discuss' discussid %}">
-			<input class="btn btn-default" type="submit" value="Discuss" />
+			<input class="btn btn-custom" type="submit" value="Start the conversation" />
 			<input type="hidden" name="state" value="articles" />
 			{% csrf_token %}
 		</form>

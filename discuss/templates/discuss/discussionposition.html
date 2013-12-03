@@ -1,26 +1,58 @@
 {% extends "discuss/discussionbase.html" %}
 {% block discussion %}
-	<h2> Done reading the articles? Great! </h2>
+	<h2> Are you done reading the articles? Great! </h2>
 	<h2> Let's get the conversation started! </h2>
 	<p> Please answer the following questions to facilitate discussion. This will help your partner better understand you.
-	<div id="questionblock">
-		<form method="post" action="{% url 'discuss' discuss.id %}">
-			<p> In my opinion, I thought the article itself was...
-			<p> Bad <input type="range" name="answer1" min="1" max="7"> Good
-			<p> Unsurprising <input type="range" name="answer2" min="1" max="7"> Surprising
-			<p>
-			<br>
-			<p> And with the perspective in my article, I...
-			<p> Disagree <input type="range" name="answer3" min="1" max="7"> Agree
-			<p>
-			<br>
-			<p> Your article seemed...
-			<p> Different <input type="range" name="answer4" min="1" max="7"> Same
-			<p>
-			<br>
-			<p> <input class="btn btn-default btn-lg" type="submit" value="Discuss!" />
-			{% csrf_token %}
-			<input type="hidden" name="currentstate" value="position" />
-		</form>
+	
+	<div class="row">
+		<div class="col-sm-6">
+			
+			<div id="questionblock">
+				<form method="post" action="{% url 'discuss' discuss.id %}">
+					<table id="slidertable">
+						<tr>
+							<td><strong>In my opinion, I thought the article itself was...</strong></td>
+						</tr>
+						<tr>
+							<td colspan="3"> <input type="range" name="answer1" min="1" max="7"> </td>
+						</tr>
+						<tr>
+							<td> Bad </td> <td> </td> <td> Good </td>
+						</tr>
+						<tr> <td> <br> </td> </tr>
+						<tr>
+							<td colspan="3"> <input type="range" name="answer2" min="1" max="7"> </td>
+						</tr>
+						<tr>
+							<td> Unsurprising </td> <td> </td> <td> Surprising </td>
+						</tr>
+						<tr> <td> <br> </td> </tr>
+						<tr>
+							<td><strong>And with the perspective in my article, I...</strong></td>
+						</tr>
+						<tr>
+							<td colspan="3"> <input type="range" name="answer3" min="1" max="7"> </td>
+						</tr>
+						<tr>
+							<td> Disagree </td> <td> </td> <td> Agree </td>
+						</tr>
+						<tr> <td> <br> </td> </tr>
+						<tr>
+							<td><strong>Your article seemed...</strong></td>
+						</tr>
+						<tr>
+							<td colspan="3"> <input type="range" name="answer4" min="1" max="7"> </td>
+						</tr>
+						<tr>
+							<td> Different </td> <td> </td> <td> The same </td>
+						</tr>
+					</table>
+					<br>
+					<input class="btn btn-custom btn-lg" type="submit" value="Continue" />
+					{% csrf_token %}
+					<input type="hidden" name="currentstate" value="position" />
+				</form>
+			</div>
+		</div>
 	</div>
 {% endblock %}

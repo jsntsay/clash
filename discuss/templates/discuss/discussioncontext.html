@@ -8,26 +8,51 @@
 {% block discussion %}
 
 	{% if not finished %}
-	<h2> Tell us more about your own context: </h2>
-	<div id="questionblock">
-		<form method="post" action="{% url 'discuss' discuss.id %}">
-			<p> I see articles like this:
-			<p> Never <input type="range" name="answer1" min="1" max="7"> All the time
-			<p>
-			<br>
-			<p> My opinion about this kind of thing has been:
-			<p> Always the same <input type="range" name="answer2" min="1" max="7"> Changed recently
-			<p>
-			<br>
-			<p> I see you and I are different. I would say that with people who are the same as me, we would see it:
-			<p> Differently than me <input type="range" name="answer3" min="1" max="7"> All about the same as I do
-			<p>
-			<br>
-			<h3>Be polite. Ask what your partner thinks:</h3>
-			<p> <input class="btn btn-default btn-lg" type="submit" value="What do you think about your article?" />
-			{% csrf_token %}
-			<input type="hidden" name="currentstate" value="context" />
-		</form>
+	<h2> Help your partner better understand where you're coming from: </h2>
+	<div class="row">
+		<div class="col-sm-6">
+			<div id="questionblock">
+				<form method="post" action="{% url 'discuss' discuss.id %}">
+					<table id="slidertable">
+						<tr>
+							<td><strong>I see articles like this:</strong></td>
+						</tr>
+						<tr>
+							<td colspan="3"> <input type="range" name="answer1" min="1" max="7"> </td>
+						</tr>
+						<tr>
+							<td> Never </td> <td> </td> <td> All the time </td>
+						</tr>
+						<tr> <td> <br> </td> </tr>
+						<tr>
+							<td><strong>My opinion about this kind of thing has been:</strong></td>
+						</tr>
+						<tr>
+							<td colspan="3"> <input type="range" name="answer2" min="1" max="7"> </td>
+						</tr>
+						<tr>
+							<td> Always the same </td> <td> </td> <td> Changed recently </td>
+						</tr>
+						<tr> <td> <br> </td> </tr>
+						<tr>
+							<td><strong>I see you and I are different. I would say that with people who are the same as me, we would see it:</strong></td>
+						</tr>
+						<tr>
+							<td colspan="3"> <input type="range" name="answer3" min="1" max="7"> </td>
+						</tr>
+						<tr>
+							<td> Differently than me </td> <td> </td> <td> All about the same as I do </td>
+						</tr>
+						<tr> <td> <br> </td> </tr>
+					</table>
+					<br>
+					<h3>Keep the discussion going. Ask what your partner thinks:</h3>
+					<p> <input class="btn btn-custom btn-lg" type="submit" value="What do you think about your article?" />
+					{% csrf_token %}
+					<input type="hidden" name="currentstate" value="context" />
+				</form>
+			</div>
+		</div>
 	</div>
 	{% else %}
 		<p id="waiting">Please wait for your partner to finish their discussion questions</p>
