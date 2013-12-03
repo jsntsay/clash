@@ -269,6 +269,7 @@ def discuss(request, id):
 						dState.finished = False
 						dState.state = 'situational'
 						dState.save()
+						addDiscreteToContext(discuss, discussB, context)
 						context['finished'] = dState.finished
 						context['situationaltopics'] = SITUATIONAL_TOPICS
 						return render(request, 'discuss/discussionsituational.html', context)
@@ -288,6 +289,12 @@ def discuss(request, id):
 						dState.finished = False
 						dState.state = 'free'
 						dState.save()
+						
+						sitA = Situational.objects.get(discuss=discuss)
+						sitB = Situational.objects.get(discuss=discussB)
+						
+						context['sitA'] = sitA
+						context['sitB'] = sitB
 						context['finished'] = dState.finished
 						return render(request, 'discuss/discussionfree.html', context)
 						
